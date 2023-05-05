@@ -1,0 +1,32 @@
+--Create a grocery store database
+
+CREATE TABLE makeup_store (id INTEGER PRIMARY KEY, name TEXT, price INTEGER, brand TEXT, ratings INTEGER);
+
+INSERT INTO make_up_store VALUES (1, "Tinted Serum", 20, "Loreal", 9.2);
+INSERT INTO make_up_store VALUES (2, "Foundation", 39, "Charlotte Tilbury", 7.5);
+INSERT INTO make_up_store VALUES (3, "Primer", 6, "Elf", 5.8);
+INSERT INTO make_up_store VALUES (4, "Concealer", 13, "Maybelline", 6.3);
+INSERT INTO make_up_store VALUES (5, "Contour stick", 25, "Rare beauty", 10);
+INSERT INTO make_up_store VALUES (6, "Blush", 23, "Rare beauty", 9.1);
+INSERT INTO make_up_store VALUES (7, "Lip pencil", 18, "Charlotte Tilbury", 2.3);
+INSERT INTO make_up_store VALUES (8, "Bronzer", 29, "Benefit", 3.7);
+INSERT INTO make_up_store VALUES (9, "Highlighter", 6, "Catrice", 9.2);
+INSERT INTO make_up_store VALUES (10, "Eyebrow gel", 4, "Elf", 7.7);
+INSERT INTO make_up_store VALUES (11, "Mascara", 15, "Maybelline", 8.1);
+INSERT INTO make_up_store VALUES (12, "Eyeshadow palette", 40, "Urban Decay", 5.9);
+INSERT INTO make_up_store VALUES (13, "Eye pencil", 7, "Essence", 6.7);
+INSERT INTO make_up_store VALUES (14, "Lipstick", 15, "MAC", 7.3);
+INSERT INTO make_up_store VALUES (15, "Lipgloss", 28, "Dior", 8.4);
+
+--display the database ordered by price. 
+
+SELECT * FROM makeup_store ORDERY BY price:
+
+--what is the avg price of items in the bulk section? 
+
+SELECT AVG(price) "average item price" FROM makeup_store;
+
+--what are the best 5 items in terms of ratings? 
+SELECT name FROM makeup_store WHERE ratings > 7
+ORDER BY ratings asc
+LIMIT 5;
