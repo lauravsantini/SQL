@@ -1,3 +1,5 @@
+------Create table for furniture store 
+
 CREATE TABLE sales(
   ID INTEGER  NOT NULL PRIMARY KEY
 , transaction_date TEXT
@@ -13,6 +15,8 @@ CREATE TABLE sales(
 , latitude REAL
 , longitude REAL
 );
+
+------------Insert values into the table 
 
 INSERT INTO sales(transaction_date,product,price,payment_type,name,city,state,country,account_created,last_login,latitude,longitude) VALUES ('1/2/09 6:17','Chair',1200,'Mastercard','Carolina','Basildon','England','United Kingdom','1/2/09 6:00','1/2/09 6:08',51.5,-1.1166667);
 INSERT INTO sales(transaction_date,product,price,payment_type,name,city,state,country,account_created,last_login,latitude,longitude) VALUES ('1/2/09 4:53','Chair',1200,'Visa','Betina','Parkville','MO','United states','1/2/09 4:42','1/2/09 7:49',39.195,-94.68194);
@@ -115,4 +119,34 @@ INSERT INTO sales(transaction_date,product,price,payment_type,name,city,state,co
 INSERT INTO sales(transaction_date,product,price,payment_type,name,city,state,country,account_created,last_login,latitude,longitude) VALUES ('1/14/09 11:19','Chair',1200,'Visa','Jennifer','Jumeira','Dubayy','United Arab Emirates','1/14/09 10:44','1/14/09 21:26',25.2097222,55.2477778);
 INSERT INTO sales(transaction_date,product,price,payment_type,name,city,state,country,account_created,last_login,latitude,longitude) VALUES ('1/13/09 19:39','Chair',1200,'Visa','Jolene','Englewood','CO','United states','1/6/09 22:00','1/14/09 22:02',39.64778,-104.98722);
 
+------selecting average price for products, cheapest one and most expensive one 
 SELECT avg(price) as "average prodtuct price", min(price) AS "minimum price", max(price) AS "maxixum price" FROM sales;
+
+-------- selecting countrys with an average price of higher than 1000
+SELECT country FROM sales 
+GROUP BY price 
+HAVING avg(price) >1000;
+
+---------------- selecting products and their respective price that were purchased with visa
+SELECT COUNT(name) AS "Purchases with Visa per State and Country", state, country FROM sales
+GROUP BY country
+HAVING payment_type = "Visa";
+
+--------------selecting prodcut and their respective price that were purchased with mastercard 
+SELECT COUNT(name) as "Purchases with Mastercard per State and Country", state, country FROM sales
+GROUP BY country
+HAVING payment_type = "Mastercard";
+
+----------showing which product is highend and which one is affordable
+SELECT ID, product,
+CASE
+WHEN price > 2500 THEN "high end product"
+ELSE "Affordable product"
+END AS "Product type"
+FROM sales;
+
+----------------selecting name of the client, city and country that purchased chairs with mastercard 
+SELECT name, city, country FROM sales WHERE payment_type = "Mastercard" AND product = "Chair";
+
+---------------selecting name of the client from Australia or UK
+SELECT name FROM sales WHERE country = "Australia" OR "United Kingdom";
