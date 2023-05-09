@@ -1,0 +1,45 @@
+/* Create table about the people and what they do here */
+
+CREATE TABLE celebrities (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, age INTEGER, nationality TEXT, friend_id INTEGER);
+
+INSERT INTO celebrities (name, age, nationality, friend_id) VALUES ("Taylor Swift", 32, "american", 2);
+INSERT INTO celebrities (name, age, nationality, friend_id) VALUES ("Selena Gomez", 30, "american", 1);
+INSERT INTO celebrities (name, age, nationality, friend_id) VALUES ("Harry Styles", 28, "british", 4);
+INSERT INTO celebrities (name, age, nationality, friend_id) VALUES ("Margot Robie", 32, "australian", 3);
+INSERT INTO celebrities (name, age, nationality, friend_id) VALUES ("Evan Green", 42, "french", 6);
+INSERT INTO celebrities (name, age, nationality, friend_id) VALUES ("Bono", 62, "irish", 5);
+INSERT INTO celebrities (name, age, nationality, friend_id) VALUES ("Justin Bieber", 28, "canadian", 8);
+INSERT INTO celebrities (name, age, nationality, friend_id) VALUES ("Ryan Gosling", 41, "canadian", 7);
+INSERT INTO celebrities (name, age, nationality, friend_id) VALUES ("Lady Gaga", 36, "american", 2);
+INSERT INTO celebrities (name, age, nationality, friend_id) VALUES ("Catherine Zeta Jones", 53, "british", 6);
+
+CREATE TABLE movies(movie_id INTEGER PRIMARY KEY, title TEXT, starring INTEGER);
+INSERT INTO movies(title, starring) VALUES ("A Rainy Day in New York", 2);
+INSERT INTO movies(title, starring) VALUES ("Dunkirk", 3);
+INSERT INTO movies(title, starring) VALUES ("The Wolf of Wall Street", 4);
+INSERT INTO movies(title, starring) VALUES ("The Dreamers", 5);
+INSERT INTO movies(title, starring) VALUES ("Crazy Stupid Love", 8);
+INSERT INTO movies(title, starring) VALUES ("The Mask of Zorro", 10);
+
+CREATE TABLE songs (song_id INTEGER PRIMARY KEY, title TEXT, singer INTEGER);
+INSERT INTO songs(title, singer) VALUES ("Maroon", 1);
+INSERT INTO songs(title, singer) VALUES ("A year without rain", 2);
+INSERT INTO songs(title, singer) VALUES ("Golden", 3);
+INSERT INTO songs(title, singer) VALUES ("Beautiful Day", 6);
+INSERT INTO songs(title, singer) VALUES ("Somebody to love", 7);
+INSERT INTO songs(title, singer) VALUES ("Bad Romance", 9);
+
+SELECT celebrities.name, movies.title
+FROM celebrities
+JOIN movies
+ON celebrities.id = movies.starring;
+
+SELECT celebrities.name, songs.title, celebrities.nationality
+FROM celebrities
+JOIN songs
+ON celebrities.id = songs.singer;
+
+SELECT celebrities.name, friend.name
+FROM celebrities
+JOIN celebrities friend
+ON celebrities.id = friend.friend_id;
