@@ -53,5 +53,25 @@ ON chinook.tracks.MediaTypeId = chinook.media_types.MediaTypeId
 INNER JOIN chinook.genres
 ON chinook.tracks.GenreId = chinook.genres.GenreId
 
+SELECT FirstName as Name, LastName as Last_name, SUM(invoices.Total) as total_sales
+FROM chinook.employees
+INNER JOIN chinook.customers
+ON chinook.employees.EmployeeId = chinook.customers.SupportRepId
+INNER JOIN chinook.invoices
+ON chinook.customers.CustomerId = chinook.invoices.CustomerId
+WHERE chinook.employees.Title = 'Sales Support Agent'
+GROUP BY chinook.employees.FirstName
+
+SELECT chinook.employees.FirstName, chinook.employees.LastName, ROUND(SUM(chinook.invoices.Total), 2) as Total_sales
+FROM chinook.employees
+INNER JOIN chinook.customers
+ON chinook.employees.EmployeeId = chinook.customers.SupportRepId
+INNER JOIN chinook.invoices
+ON chinook.customers.CustomerId = chinook.invoices.CustomerId
+WHERE chinook.employees.Title = 'Sales Support Agent'
+AND chinook.invoices.InvoiceDate like '%2009%'
+GROUP BY chinook.employees.FirstName
+ORDER BY (ROUND(SUM(chinook.invoices.Total), 2)) DESC LIMIT 1
+
 
 
