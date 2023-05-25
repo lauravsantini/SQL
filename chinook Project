@@ -1,0 +1,57 @@
+SELECT FirstName, LastName, CustomerID, Country
+FROM chinook.customers
+WHERE Country <> "US"
+
+SELECT * FROM chinook.customers
+WHERE Country = "Brazil"
+
+SELECT FirstName, LastName, Title
+FROM chinook.employees
+WHERE Title like '%sales%'
+
+SELECT distinct BillingCountry
+FROM chinook.invoices
+
+SELECT FirstName, Lastname, InvoiceId
+FROM chinook.employees
+INNER JOIN chinook.customers
+ON chinook.employees.EmployeeId = chinook.customers.SupportRepId
+INNER JOIN chinook.invoices
+ON chinook.invoices.CustomerId = chinook.customers.CustomerId
+
+SELECT invoices.Total, customers.FirstName, customers.LastName, customers.Country, employees.FirstName, employees.LastName
+FROM chinook.invoices
+INNER JOIN chinook.customers
+ON chinook.invoices.CustomerId = chinook.customers.CustomerId
+INNER JOIN chinook.employees
+ON chinook.customers.SupportRepId = chinook.employees.EmployeeId
+
+SELECT COUNT(*)
+FROM invoices
+where chinook.invoices.InvoiceDate like '%2009%'
+
+SELECT chinook.tracks.Name, chinook.invoice_items.InvoiceLineId
+FROM chinook.tracks
+INNER JOIN chinook.invoice_items
+ON chinook.tracks.TrackId = chinook.invoice_items.TrackId
+
+SELECT chinook.tracks.Name as Track, chinook.artists.Name as Aritst, chinook.invoice_items.InvoiceLineId
+FROM chinook.invoice_items
+INNER JOIN chinook.tracks
+ON chinook.invoice_items.TrackId = chinook.tracks.TrackId
+INNER JOIN chinook.albums
+ON chinook.tracks.AlbumId = chinook.albums.AlbumId
+INNER JOIN chinook.artists
+ON chinook.albums.ArtistId = chinook.artists.ArtistId
+
+SELECT chinook.tracks.Name as TrackName, chinook.albums.Title as Album, chinook.media_types.Name as MediaType, chinook.genres.Name as Genre
+FROM chinook.tracks
+INNER JOIN chinook.albums
+ON chinook.tracks.AlbumId = chinook.albums.AlbumId
+INNER JOIN chinook.media_types
+ON chinook.tracks.MediaTypeId = chinook.media_types.MediaTypeId
+INNER JOIN chinook.genres
+ON chinook.tracks.GenreId = chinook.genres.GenreId
+
+
+
