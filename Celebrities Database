@@ -1,4 +1,4 @@
-/* Create table about the people and what they do here */
+--Create a table containing information on celebrities 
 
 CREATE TABLE celebrities (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, age INTEGER, nationality TEXT, friend_id INTEGER);
 
@@ -13,6 +13,8 @@ INSERT INTO celebrities (name, age, nationality, friend_id) VALUES ("Ryan Goslin
 INSERT INTO celebrities (name, age, nationality, friend_id) VALUES ("Lady Gaga", 36, "american", 2);
 INSERT INTO celebrities (name, age, nationality, friend_id) VALUES ("Catherine Zeta Jones", 53, "british", 6);
 
+-Create table containing Movie titles and ID of the starring celebrity
+
 CREATE TABLE movies(movie_id INTEGER PRIMARY KEY, title TEXT, starring INTEGER);
 INSERT INTO movies(title, starring) VALUES ("A Rainy Day in New York", 2);
 INSERT INTO movies(title, starring) VALUES ("Dunkirk", 3);
@@ -20,6 +22,8 @@ INSERT INTO movies(title, starring) VALUES ("The Wolf of Wall Street", 4);
 INSERT INTO movies(title, starring) VALUES ("The Dreamers", 5);
 INSERT INTO movies(title, starring) VALUES ("Crazy Stupid Love", 8);
 INSERT INTO movies(title, starring) VALUES ("The Mask of Zorro", 10);
+
+-Create table containing songs and ID of the artist 
 
 CREATE TABLE songs (song_id INTEGER PRIMARY KEY, title TEXT, singer INTEGER);
 INSERT INTO songs(title, singer) VALUES ("Maroon", 1);
@@ -29,15 +33,21 @@ INSERT INTO songs(title, singer) VALUES ("Beautiful Day", 6);
 INSERT INTO songs(title, singer) VALUES ("Somebody to love", 7);
 INSERT INTO songs(title, singer) VALUES ("Bad Romance", 9);
 
+-Show Celebrities and the movies they have starred in
+
 SELECT celebrities.name, movies.title
 FROM celebrities
 JOIN movies
 ON celebrities.id = movies.starring;
 
+-Show celebrities and the songs they sing, as well with their nationalities 
+
 SELECT celebrities.name, songs.title, celebrities.nationality
 FROM celebrities
 JOIN songs
 ON celebrities.id = songs.singer;
+
+--Show celebrities and the name of their best friend
 
 SELECT celebrities.name, friend.name
 FROM celebrities
