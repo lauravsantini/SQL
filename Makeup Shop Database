@@ -1,6 +1,8 @@
---Create a grocery store database
+--Create a Grocery Store Database 
 
 CREATE TABLE makeup_store (id INTEGER PRIMARY KEY, name TEXT, price INTEGER, brand TEXT, ratings INTEGER);
+
+-Insert values into the table
 
 INSERT INTO make_up_store VALUES (1, "Tinted Serum", 20, "Loreal", 9.2);
 INSERT INTO make_up_store VALUES (2, "Foundation", 39, "Charlotte Tilbury", 7.5);
@@ -18,15 +20,16 @@ INSERT INTO make_up_store VALUES (13, "Eye pencil", 7, "Essence", 6.7);
 INSERT INTO make_up_store VALUES (14, "Lipstick", 15, "MAC", 7.3);
 INSERT INTO make_up_store VALUES (15, "Lipgloss", 28, "Dior", 8.4);
 
---display the database ordered by price. 
+-Display all the database ordered by price 
 
 SELECT * FROM makeup_store ORDERY BY price:
 
---what is the avg price of items in the bulk section? 
+--What is the average price for products in the shop?
 
 SELECT AVG(price) "average item price" FROM makeup_store;
 
---what are the best 5 items in terms of ratings? 
+-What are the top 5 best products in terms on ratings?
+
 SELECT name FROM makeup_store WHERE ratings > 7
 ORDER BY ratings asc
 LIMIT 5;
