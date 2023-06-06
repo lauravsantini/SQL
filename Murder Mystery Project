@@ -60,24 +60,25 @@ WITH suspect AS(
   AND car_make = 'Tesla'
   AND car_model = 'Model S'
   AND gender = 'female'
-  )
-SELECT name, count(*) as n
-FROM person
-INNER JOIN facebook_event_checkin
-ON person.id = facebook_event_checkin.person_id
-WHERE event_name = 'SQL Symphony Concert' 
-AND date like '%201712%'
-GROUP BY person_id
-HAVING n = 3
-
-SELECT name
-FROM person
-INNER JOIN drivers_license
-ON person.license_id = drivers_license.id
-  WHERE height >= 64 AND height <= 68
-  AND hair_color = 'red'
-  AND car_make = 'Tesla'
-  AND car_model = 'Model S'
-  AND gender = 'female'
+  ), rich_suspect AS(
+	SELECT person.id as person_id, name
+	FROM suspect
+	INNER JOIN person
+	ON suspect.id = person.license_id
+	INNER JOIN income
+	ON person.ssn = income.ssn
+	), attenders AS(
+	  SELECT person_id, count(1) as n
+	  FROM facebook_event_checkin
+	  WHERE event_name = 'SQL Symphony Concert' 
+	  AND date like '%201712%'
+	  GROUP BY person_id
+	  HAVING n = 3
+	  )
+SELECT name from rich_suspect
+INNER JOIN attenders
+WHERE rich_suspect.person_id = attenders.person_id
 
 -The result will be: 'Miranda Priestly' 
+
+
