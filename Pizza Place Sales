@@ -1,0 +1,89 @@
+select count(orders.order_id) as total_orders_in_january FROM chinook.orders
+WHERE date like '%2015-01%'
+
+select count(orders.order_id) as total_orders_in_january FROM chinook.orders
+WHERE date like '%2015-02%'
+
+select count(orders.order_id) as total_orders_in_january FROM chinook.orders
+WHERE date like '%2015-03%'
+
+select count(orders.order_id) as total_orders_in_january FROM chinook.orders
+WHERE date like '%2015-04%'
+
+select count(orders.order_id) as total_orders_in_january FROM chinook.orders
+WHERE date like '%2015-05%'
+
+select count(orders.order_id) as total_orders_in_january FROM chinook.orders
+WHERE date like '%2015-06%'
+
+select count(orders.order_id) as total_orders_in_january FROM chinook.orders
+WHERE date like '%2015-07%'
+
+select count(orders.order_id) as total_orders_in_january FROM chinook.orders
+WHERE date like '%2015-08%'
+
+select count(orders.order_id) as total_orders_in_january FROM chinook.orders
+WHERE date like '%2015-09%'
+
+select count(orders.order_id) as total_orders_in_january FROM chinook.orders
+WHERE date like '%2015-10%'
+
+select count(orders.order_id) as total_orders_in_january FROM chinook.orders
+WHERE date like '%2015-11%'
+
+select count(orders.order_id) as total_orders_in_january FROM chinook.orders
+WHERE date like '%2015-12%'
+
+--average amount of purchases in april 
+select count(orders.order_id) / 30 as order_average_april FROM chinook.orders
+WHERE date like '%2015-04%'
+
+--top 5 peak times
+SELECT
+  TIME(orders.time) AS PeakTime,
+  COUNT(*) AS TotalOrders
+FROM
+  Orders
+GROUP BY
+  PeakTime
+ORDER BY
+  TotalOrders DESC
+LIMIT 5
+
+--top 3 best seller pizzas
+select orderDetails.pizza_id
+FROM chinook.orderDetails
+WHERE orderDetails.quantity > 3
+LIMIT 3
+
+--what was the total revenue of the year?
+select round(sum(pizzas.price), 2) as total_revenue
+FROM chinook.pizzas
+LEFT JOIN chinook.orderDetails
+ON pizzas.pizza_id = orderDetails.pizza_id
+LEFT JOIN chinook.orders
+ON orderDetails.order_id = orders.order_id
+
+--most profitable month
+SELECT strftime('%m', orders.date) as date, ROUND(sum(pizzas.price), 2) as sum
+from chinook.orders
+LEFT JOIN chinook.orderDetails
+on orders.order_id = orderDetails.order_id
+LEFT JOIN chinook.pizzas
+ON orderDetails.pizza_id = pizzas.pizza_id
+GROUP BY date
+ORDER BY sum DESC
+LIMIT 1
+
+-top 5 most expensive pizzas that sell the least (possibly can be taken down from the menu)
+
+SELECT pizzas.pizza_id
+FROM chinook.pizzas
+LEFT JOIN chinook.orderDetails
+ON pizzas.pizza_id = orderdetails.pizza_id
+LEFT JOIN chinook.orders
+ON orderdetails.order_id = orders.order_id
+WHERE orderdetails.quantity < 2
+GROUP BY orderdetails.pizza_id
+ORDER BY pizzas.price 
+LIMIT 5
