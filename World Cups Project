@@ -1,0 +1,5 @@
+--How have host countries performed over the years 
+
+select world_cups.Winner, world_cups.year
+FROM world_cups
+WHERE world_cups.Host_Country = world_cups.Winner
