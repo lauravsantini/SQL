@@ -1,0 +1,50 @@
+--best selling products
+
+select products.productID, products.productName, count(order_details.orderID) as total_sales
+from products
+LEFT JOIN order_details
+on products.productID = order_details.productID
+group by products.productName
+order by total_sales DESC
+LIMIT 10
+
+--worst selling products
+
+select products.productID, products.productName, count(order_details.orderID) as total_sales
+from products
+LEFT JOIN order_details
+on products.productID = order_details.productID
+group by products.productName
+HAVING total_sales < 5
+order by total_sales ASC
+
+--identify any key customers
+
+select customers1.contactName, count(order_details.orderID) as total_sales
+from customers1
+left join orders1
+on customers1.customerID = orders1.customerID
+left join order_details
+on orders1.orderID = order_details.orderID
+group by customers1.contactName
+order by total_sales DESC
+LIMIT 10
+
+--are shipping costs consistent accross providers?
+select shippers.companyName, orders1.freight
+from shippers
+left join orders1
+on shippers.shipperID = orders1.shipperID
+group by shippers.companyName
+order by freight ASC
+
+--are there any sale trends overtime ?
+
+select strftime('%m', orders1.orderDate) as month, products.productName, sum(products.quantityPerUnit) as total_sales
+from orders1
+left join order_details
+on orders1.orderID = order_details.orderID
+left join products
+on order_details.productID = products.productID
+group by productName, month
+order by total_sales DESC
